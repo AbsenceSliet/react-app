@@ -2,12 +2,15 @@ import {LocaleProvider} from 'antd'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter} from  'react-router-dom'
 import * as serviceWorker from './serviceWorker';
-import RouterMap from  './router/index'
-
+// import RouterMap from  './router/index'
+import App from  './containers/App/index'
 ReactDOM.render(
     <LocaleProvider locale={zhCN}>
-        <RouterMap/>
+        < BrowserRouter >
+            <App />
+        </BrowserRouter>
     </LocaleProvider>,
     document.getElementById('root')
 );
