@@ -4,9 +4,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter} from  'react-router-dom'
 import * as serviceWorker from './serviceWorker';
-import './icons/index'
-// import RouterMap from  './router/index'
+
+
+
+
+
 import App from  './containers/App/index'
+
+
+const content = require.context('./icons/svg/', false, /\.svg$/)
+const iconAll = (requireContext: any) => requireContext
+    .keys()
+    .map(requireContext)
+iconAll(content)
+console.log(iconAll(content));
 ReactDOM.render(
     <LocaleProvider locale={zhCN}>
         < BrowserRouter >
