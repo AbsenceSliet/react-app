@@ -1,7 +1,7 @@
 import * as  React from  'react'
 import {default as Loadable} from 'react-loadable'
-
-import  {Route} from  'react-router-dom'
+import {Icon} from  'antd'
+import  {Route,NavLink} from  'react-router-dom'
 import loading from  '../components/Loading/index'
 import routerInfo from './route';
 import menuInfo from './menu';
@@ -25,6 +25,15 @@ const getRoute = (info:any[])=>{
     ))
     return router
 }
+const getLinks  = (links:any) :string=>{
+    return links.map((item:any)=>(
+        <NavLink to={item.path} key={item.path}>
+            <Icon type={item.icon}/>
+            <span>{item.title}</span>
+        </NavLink>
+    ))
+}
+export const Links = getLinks(menuInfo)
 export const Routes = getRoute(routes)
  
 
