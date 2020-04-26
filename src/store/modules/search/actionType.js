@@ -1,0 +1,2 @@
+export const SEARCHACTIVE = "SEARCH_ACTIVE";
+export const SEARCHVALUE = "SEARCH_VALUE";

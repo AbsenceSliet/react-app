@@ -1,8 +1,9 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loadable from "react-loadable";
 import LoadingAnimation from "@/components/LoadingAnimation/index";
 import { connect } from "react-redux";
+import Header from "@/components/Header";
 
 import "./App.scss";
 const asyncLoadComponent = (component) =>
@@ -15,15 +16,21 @@ const asyncLoadComponent = (component) =>
 function App(props) {
   return (
     <>
-      <HashRouter>
+      <Router>
+        <Header />
         <Switch>
           <Route exact path="/" component={asyncLoadComponent("Home")} />
+          <Route
+            exact
+            path="/search"
+            component={asyncLoadComponent("Search")}
+          />
         </Switch>
-      </HashRouter>
+      </Router>
     </>
   );
 }
-let mergeStateToProps = (state) => {
+let mergeStateToProps = () => {
   return {};
 };
 export default connect(mergeStateToProps, {})(App);

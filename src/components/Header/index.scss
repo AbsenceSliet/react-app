@@ -1,0 +1,12 @@
+.Header {
+    @include flex(row, space-between, center);
+    height: r(48);
+    padding: r(0) r(10);
+
+    .center {
+        .placeholder {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

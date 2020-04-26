@@ -1,2 +1,5 @@
 import React from "react";
-export default () => <div>home</div>;
+import "./index.scss";
+export default () => {
+  return <div>home</div>;
+};
