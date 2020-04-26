@@ -9,7 +9,7 @@ const reducer = (state = InitSearchState, action) => {
     case SEARCHACTIVE:
       return { ...state, active: action.payload.active };
     case SEARCHVALUE:
-      return { ...state, active: action.payload.value };
+      return { ...state, value: action.payload.value };
     default:
       return state;
   }

@@ -9,6 +9,6 @@ export const setSearchActive = (active) => ({
 export const setSearchValue = (value) => ({
   type: SEARCHVALUE,
   payload: {
-    value,
+    value
   },
 });

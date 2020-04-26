@@ -4,16 +4,22 @@ import classNames from "classnames";
 import CustomIcon from "@/components/CustomIcon";
 import { isEmpty } from "lodash";
 export default (props) => {
-  let { className, value, placeholder, searchFocus, searchchange } = props;
+  let { className, value, placeholder, searchFocus, searchChange,searchSubmit } = props;
   const inputRef = useRef(null);
   const focusHandle = () => {
     searchFocus();
   };
   const changeHandle = (event) => {
-    searchchange(event.target.value);
+    searchChange(event.target.value);
   };
-  const cancelHandle = () => {};
-
+  const clearValue = () => {
+    searchChange('');
+    inputRef.current.focus()
+  };
+  const submitHandle =()=>{
+    searchSubmit(value)
+    inputRef.current.blur()
+  }
   return (
     <section
       className={classNames("Input-wrapper", className && className.split(" "))}
@@ -32,12 +38,13 @@ export default (props) => {
           ref={inputRef}
           onFocus={focusHandle}
           onChange={changeHandle}
+          onSubmit={submitHandle}
         />
         {!isEmpty(value) && (
           <CustomIcon
             className="icon-cancel"
             type="cancel"
-            onClick={cancelHandle}
+            onClick={clearValue}
           />
         )}
       </div>

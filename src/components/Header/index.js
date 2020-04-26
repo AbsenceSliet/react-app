@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch,useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { get } from "lodash";
 import CustomIcon from "@/components/CustomIcon";
@@ -14,6 +14,7 @@ export default () => {
   const active = useSelector((state) => state.search.active);
   const value = useSelector((state) => state.search.value);
   const dispatch = useDispatch();
+  const history = useHistory()
   const focusHandle = () => {
     if (active === false) {
       dispatch(setSearchActive(true));
@@ -22,6 +23,14 @@ export default () => {
   const chaneHandle = (value) => {
     dispatch(setSearchValue(value));
   };
+  const cancelHandle = () =>{
+    history.goBack()
+    dispatch(setSearchValue(''));
+    dispatch(setSearchActive(false));
+  }
+  const submitHandle =()=>{
+    
+  }
   return (
     <div className="Header">
       {isHomeView && <CustomIcon type="maikefeng" />}
@@ -30,9 +39,10 @@ export default () => {
         value={value}
         className={active ? "" : "center"}
         searchFocus={focusHandle}
-        searchchange={chaneHandle}
+        searchChange={chaneHandle}
+        searchSubmit = {submitHandle}
       />
-      {isHomeView && active && <span>取消</span>}
+      {isHomeView && active && <span onClick={cancelHandle}>取消</span>}
     </div>
   );
 };
