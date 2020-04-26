@@ -2,16 +2,18 @@ import React, { useRef } from "react";
 import "./index.scss";
 import classNames from "classnames";
 import CustomIcon from "@/components/CustomIcon";
-import { isEmpty } from "lodash";
+import { isEmpty,throttle } from "lodash";
+
 export default (props) => {
   let { className, value, placeholder, searchFocus, searchChange,searchSubmit } = props;
   const inputRef = useRef(null);
   const focusHandle = () => {
     searchFocus();
   };
-  const changeHandle = (event) => {
+  const changeHandle =throttle( (event) => {
+    event.persist()
     searchChange(event.target.value);
-  };
+  },1500);
   const clearValue = () => {
     searchChange('');
     inputRef.current.focus()

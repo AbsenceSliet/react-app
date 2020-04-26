@@ -31,3 +31,5 @@ export const getUrlQueryStr = function () {
   }
   return query_string;
 };
+
+export const DEFAULT_PLACEHOLDER = '音乐'
