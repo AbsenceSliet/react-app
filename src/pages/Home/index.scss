@@ -93,4 +93,33 @@
             }
         }
     }
+
+    .suggest {
+        padding-bottom: $commonPadd;
+
+        &_target {
+            padding: r(10) 0;
+            color: rgba($color: #001ba0, $alpha: 1.0);
+            border-bottom: 1px solid rgba($color: #000000, $alpha: .05);
+        }
+
+        &_list {
+            &-item {
+                @include thirdTitle;
+                @include flex(row, flex-start, center);
+
+                .icon {
+                    font-size: r(18);
+                }
+
+                .keyword {
+                    flex-grow: 1;
+                    margin-left: r(5);
+                    border-bottom: 1px solid rgba($color: #000000, $alpha: .05);
+                    padding: r(10) 0;
+
+                }
+            }
+        }
+    }
 }

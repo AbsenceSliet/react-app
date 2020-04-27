@@ -16,3 +16,17 @@ export const hotSearch = () =>
     method: "get",
     url: "/search/hot/detail",
   });
+
+/**
+ * 获取热搜建议
+ * @param keywords 关键字
+ */
+export const getSearchSuggest = (keywords) =>
+  service({
+    method: "get",
+    url: "/search/suggest",
+    params: {
+      type: "mobile",
+      keywords,
+    },
+  });
