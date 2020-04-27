@@ -5,10 +5,11 @@ import { getSearchSuggest } from "@/constants/api";
 import { useDebounce } from "@/utils/hooks";
 import { isEmpty, map } from "lodash";
 import { useHistory } from "react-router-dom";
-import { setSearchValue } from "@/store/modules/search/action";
+import { setSearchValue,setSearchHistory } from "@/store/modules/search/action";
 
 export default () => {
   const value = useSelector((state) => state.search.value);
+
   const debounceValue = useDebounce(value, 800);
   const [suggest, setSuggest] = useState([]);
   const history = useHistory();
@@ -27,7 +28,8 @@ export default () => {
     );
   }, [debounceValue]);
   const keywordhandle = (keyword) => {
-    // dispatch(setSearchValue(keyword));
+    dispatch(setSearchHistory(keyword))
+    dispatch(setSearchValue(keyword));
     history.push(`/search?query=${keyword}`);
   };
   return (
@@ -39,7 +41,7 @@ export default () => {
             <li
               className="suggest_list-item"
               key={index}
-              onClick={keywordhandle(item.keyword)}
+              onClick={()=>keywordhandle(item.keyword)}
             >
               <CustomIcon type="search" className="icon" />
               <span className="keyword">{item.keyword}</span>

@@ -23,7 +23,6 @@ export default () => {
   const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log(historys, "history-------");
   useEffect(() => {
     searchDefault().then(
       (res) => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { hotSearch } from "@/constants/api";
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchHot, setSearchHistory } from "@/store/modules/search/action";
+import { setSearchHot,setSearchValue, setSearchHistory } from "@/store/modules/search/action";
 import { isEmpty, map, lte } from "lodash";
 import CustomIcon from "@/components/CustomIcon";
 import { useHistory } from "react-router-dom";
@@ -13,42 +13,50 @@ const SearchHistory = () => {
   const historys = useSelector((state) => state.search.historys);
   const router = useHistory();
   const clearHistory = () => {
-    dispatch(setSearchHistory([]));
+    dispatch(setSearchHistory(''));
   };
-  if (!isEmpty(historys)) {
-    return (
-      <div className="historys">
-        <p className="historys_header">
-          <span>搜索历史</span>
-          <CustomIcon
-            className="icon-delete"
-            type="delete"
-            onClick={clearHistory}
-          />
-        </p>
-        <ul>
-          {map(historys, (item, index) => {
-            return (
-              <li
-                key={index}
-                onClick={() => {
-                  router.push(`/search?query=${item}`);
-                }}
-              >
-                {item}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
-  return null;
+  useEffect(() => {
+    console.log(historys,'0000000historys')
+  }, [historys]);
+  return (
+    !isEmpty(historys) ? <div className="historys">
+    <p className="historys_header">
+      <span>搜索历史</span>
+      <CustomIcon
+        className="icon-delete"
+        type="delete"
+        onClick={clearHistory}
+      />
+    </p>
+    <ul>
+      {map(historys, (item, index) => {
+        return (
+          <li
+            key={index}
+            onClick={() => {
+              router.push(`/search?query=${item}`);
+            }}
+          >
+            {item}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+  :''
+  );
 };
 const HotItem = ({ item, number }) => {
   const { searchWord, iconUrl, content } = item;
+  const dispatch = useDispatch();
+  const router = useHistory();
+  const hotClickHandle =value=>{
+    dispatch(setSearchHistory(value));
+    dispatch(setSearchValue(value));
+    router.push(`/search?query=${value}`);
+  }
   return (
-    <li className={classNames("item", lte(number, 4) ? "active" : "")}>
+    <li className={classNames("item", lte(number, 4) ? "active" : "")} onClick={()=>hotClickHandle(searchWord)}>
       <p className="item_sort">{number}</p>
       <div className="item_content">
         <h6>
