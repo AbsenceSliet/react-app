@@ -1,11 +1,16 @@
-import React,{useState,useEffect} from "react";
-import { useRouteMatch,useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { get } from "lodash";
+import { get, isEmpty, isEqual, includes } from "lodash";
 import CustomIcon from "@/components/CustomIcon";
 import SearchInput from "@/components/SearchInput";
-import { setSearchActive, setSearchValue } from "@/store/modules/search/action";
-import {DEFAULT_PLACEHOLDER} from "@/utils/tools"
+import {
+  setSearchActive,
+  setSearchValue,
+  setSearchHistory,
+} from "@/store/modules/search/action";
+import { DEFAULT_PLACEHOLDER } from "@/utils/tools";
+import { searchDefault } from "@/constants/api";
 import "./index.scss";
 export default () => {
   const searchRouteMatch = useRouteMatch("/search");
@@ -14,41 +19,64 @@ export default () => {
   const isHomeView = get(homeRouteMatch, "isExact");
   const active = useSelector((state) => state.search.active);
   const value = useSelector((state) => state.search.value);
-  const [placeholder,setPlaceholder] = useState(DEFAULT_PLACEHOLDER)
+  const historys = useSelector((state) => state.search.historys);
+  const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
+  console.log(historys, "history-------");
   useEffect(() => {
-    
+    searchDefault().then(
+      (res) => {
+        let { code, data } = res.data;
+        if (code === 200 && !isEmpty(data)) {
+          setPlaceholder(data.realkeyword);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }, []);
   const focusHandle = () => {
     if (active === false) {
       dispatch(setSearchActive(true));
     }
-    if(isSearchView){
-      history.push('/')
+    if (isSearchView) {
+      history.push("/");
     }
   };
-  const chaneHandle =(value) => {
+  const chaneHandle = (value) => {
     dispatch(setSearchValue(value));
   };
-  const cancelHandle = () =>{
-    history.goBack()
-    dispatch(setSearchValue(''));
+  const cancelHandle = () => {
+    dispatch(setSearchValue(""));
     dispatch(setSearchActive(false));
-  }
-  const submitHandle =()=>{
-
-  }
+  };
+  const submitHandle = () => {
+    if (!isEmpty(value)) {
+      history.push(`/search?query=${value}`);
+    } else if (!isEqual(placeholder, DEFAULT_PLACEHOLDER)) {
+      dispatch(setSearchValue(placeholder));
+      history.push(`/search?query=${placeholder}`);
+    }
+    const historyValue = value || placeholder;
+    if (!includes(historyValue)) {
+      historys.push(historyValue);
+      setSearchHistory(historys);
+    }
+  };
   return (
     <div className="Header">
       {isHomeView && <CustomIcon type="maikefeng" />}
+      {isSearchView && <CustomIcon type="back" />}
+
       <SearchInput
         placeholder={placeholder}
         value={value}
         className={active ? "" : "center"}
         searchFocus={focusHandle}
         searchChange={chaneHandle}
-        searchSubmit = {submitHandle}
+        searchSubmit={submitHandle}
       />
       {isHomeView && active && <span onClick={cancelHandle}>取消</span>}
     </div>

@@ -18,7 +18,6 @@
 .env.test.local
 .env.production.local
 *.min.css
-*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

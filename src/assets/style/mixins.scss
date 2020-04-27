@@ -96,3 +96,32 @@
     outline: none;
     font-size: r(16);
 }
+
+@mixin commonPadd {
+    padding-left: $commonPadd;
+    padding-right: $commonPadd;
+}
+
+@mixin fistTitle {
+    font-size: r(18);
+    font-weight: 600;
+    line-height: r(20);
+}
+
+@mixin secondTitle {
+    font-size: r(16);
+    font-weight: 600;
+    line-height: r(18);
+}
+
+@mixin thirdTitle {
+    font-size: r(14);
+    font-weight: 500;
+    line-height: r(18);
+}
+
+@mixin smallTitle {
+    font-size: r(12);
+    font-weight: normal;
+    line-height: r(14);
+}

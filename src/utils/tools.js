@@ -32,4 +32,5 @@ export const getUrlQueryStr = function () {
   return query_string;
 };
 
-export const DEFAULT_PLACEHOLDER = '音乐'
+export const DEFAULT_PLACEHOLDER = "任意";
+export const globalName = "Netease_";
