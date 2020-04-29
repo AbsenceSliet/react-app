@@ -1,0 +1,15 @@
+.search_main {
+    overflow: hidden;
+    position: absolute;
+    top: r(48);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    >ul {
+        li {
+            padding: r(15) r(10);
+        }
+    }
+}

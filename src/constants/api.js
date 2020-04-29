@@ -30,3 +30,22 @@ export const getSearchSuggest = (keywords) =>
       keywords,
     },
   });
+
+/**
+ *
+ * @param {keywords} 搜索关键字
+ * @param {limit} 限制条数
+ * @param {offset} 索引位置
+ * @param {type} 搜索类型(见文档)
+ */
+export const getSearchMusic = ({ keywords, limit, offset, type = 1 }) =>
+  service({
+    method: "get",
+    url: "/search",
+    params: {
+      type,
+      keywords,
+      limit,
+      offset,
+    },
+  });
