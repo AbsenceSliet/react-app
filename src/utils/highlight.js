@@ -8,7 +8,6 @@ const hightlight = (
 ) => {
   let regex = new RegExp(`(${keywords})`, "gi");
   const nodes = contents.split(regex).map((res, index) => {
-    console.log(res, "00000");
     if (res === keywords) {
       return createElement(tag, { ...props, key: index }, res);
     }

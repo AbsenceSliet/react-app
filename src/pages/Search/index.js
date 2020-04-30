@@ -5,11 +5,12 @@ import { useHistory } from "react-router-dom";
 import { getUrlQuery } from "@/utils/tools";
 import BScroll from "@better-scroll/core";
 import Pullup from "@better-scroll/pull-up";
+import SongItem from "@/components/SongItem";
 import "./index.scss";
-import highlight from "@/utils/highlight";
+
 BScroll.use(Pullup);
 const limit = 20;
-const SearchItem = (props) => {};
+
 export default () => {
   const route = useHistory();
   const [searchList, setSearchList] = useState([]);
@@ -29,10 +30,10 @@ export default () => {
   }, [query]);
   return (
     <div className="search_main" id="search__list">
-      <ul>
+      <ul className="songs">
         {searchList &&
           searchList.map((item, index) => (
-            <li key={index}>{highlight(item.name, query)}</li>
+            <SongItem query={query} item={item} key={index} />
           ))}
       </ul>
     </div>
